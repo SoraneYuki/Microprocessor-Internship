@@ -1,0 +1,7 @@
+{
+    "arduino.path": "C:\\Program Files (x86)\\Arduino",
+    "arduino.defaultBaudRate": 9600,
+    "editor.cursorSmoothCaretAnimation": true,
+    "editor.smoothScrolling": true,
+    "editor.cursorBlinking": "phase"
+}
