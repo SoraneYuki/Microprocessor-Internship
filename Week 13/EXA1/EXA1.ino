@@ -55,7 +55,7 @@ void dump(decode_results *results) {
 void loop() {
 
     if (irrecv.decode(&results)) {
-        //Serial.println(results.value, HEX);
+        Serial.println(results.value);
         dump(&results);
         irrecv.resume();
     }
