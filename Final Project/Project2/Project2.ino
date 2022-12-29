@@ -8,7 +8,10 @@
 // 1 2 3 4  5   6   7   0
 // 上下左右 路 起點 終點 牆
 
-const int map[5][3] = {
+const int x = 3;
+const int y = 5;
+
+int map[5][3] = {
 
     {0, 0, 0},
     {0, 7, 0},
@@ -20,12 +23,12 @@ const int map[5][3] = {
 
 const uint64_t IMAGES[] = {
 
-    0x817e425a5a424242,
-    0x8142240000000000,
-    0x8142424242424242,
-    0x817e424242424242,
-    0x81427c4040404040,
-    0x81423e0202020202
+    0x817e425a5a424242, // 0 終點
+    0x8142240000000000, // 1 無盡路
+    0x8142424242424242, // 2 岔路
+    0x817e424242424242, // 3 死路
+    0x81427c4040404040, // 4 右轉路
+    0x81423e0202020202  // 5 左轉路
 
 };
 
@@ -57,13 +60,53 @@ void setup() {
 
 void loop() {
 
-    wordtoled(IMAGES[dis]);
-    Serial.println(led[0][0]);
-    displayled(led, 200);
-    dis++;
-    if(dis >= 8) {
-      dis = 0;
+    for(int i = 0; i < y; i++)
+    {
+
+        for(int j = 0; j < x; j++)
+        {
+
+            if(map[i][j] == 1) {
+
+                if(map[i - 1][j] == 0) {
+
+                    dis = 3;
+
+                }
+                else if((map[i - 1][j] == 5) && (map[i - 1][j + 1] == 5) && (map[i - 1][j - 1] == 5)) {
+
+                    dis = 2;                    
+
+                }
+                else if((map[i - 1][j] == 5) && (map[i - 1][j + 1] == 0) && (map[i - 1][j - 1] == 0)) {
+
+                    dis = 1;                    
+
+                }
+                else if((map[i - 1][j] == 5) && (map[i - 1][j + 1] == 5) && (map[i - 1][j - 1] == 0)) {
+
+                    dis = 4;                    
+
+                }
+                else if((map[i - 1][j] == 5) && (map[i - 1][j + 1] == 0) && (map[i - 1][j - 1] == 5)) {
+
+                    dis = 5;                    
+
+                }
+                else if(map[i - 1][j] == 7) {
+
+                    dis = 0;                    
+
+                }
+
+            }
+        
+        }
+
     }
+
+    wordtoled(IMAGES[dis]);
+    displayled(led, 200);
 
 }
 
